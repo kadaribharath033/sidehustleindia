@@ -12,7 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.example.sidehustleindia.model.Hustle
+import com.example.sidehustleindia.utils.AppLanguage
+import com.example.sidehustleindia.utils.LanguageManager
 import com.example.sidehustleindia.viewmodel.ProfileViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,7 +32,24 @@ fun DashboardScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Your Matches", fontWeight = FontWeight.Bold) },
+                title = { Text(LanguageManager.get("find_gigs"), fontWeight = FontWeight.Bold) },
+                actions = {
+                    var expanded by remember { mutableStateOf(false) }
+                    IconButton(onClick = { expanded = true }) {
+                        Text(LanguageManager.currentLanguage.nativeName.take(2), style = MaterialTheme.typography.labelLarge)
+                    }
+                    DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                        AppLanguage.values().forEach { language ->
+                            DropdownMenuItem(
+                                text = { Text(language.nativeName) },
+                                onClick = {
+                                    LanguageManager.currentLanguage = language
+                                    expanded = false
+                                }
+                            )
+                        }
+                    }
+                },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                     titleContentColor = MaterialTheme.colorScheme.onBackground

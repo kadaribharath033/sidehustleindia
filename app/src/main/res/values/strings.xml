@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">side hustle india</string>
+    <string name="server_base_url">http://10.59.119.191:3000/</string>
 </resources>

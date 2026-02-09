@@ -2,19 +2,18 @@ package com.example.sidehustleindia.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Premium/Vibrant Palette
-val PrimaryViolet = Color(0xFF6C63FF)
-val PrimaryIndigo = Color(0xFF4F46E5)
-val SecondaryTeal = Color(0xFF06B6D4)
-val SecondaryPink = Color(0xFFEC4899)
+// Neobrutalism Palette
+val NeoYellow = Color(0xFFFFD700)
+val NeoPink = Color(0xFFFF69B4)
+val NeoGreen = Color(0xFF00FF41) // Matrix/Cyber green
+val NeoWhite = Color(0xFFFFFFFF)
+val NeoBlack = Color(0xFF000000)
+val NeoBg = Color(0xFFF3F4F6) // Light Gray for background depth
+val NeoBlue = Color(0xFF2563EB)
 
-// Dark Theme Colors
-val BackgroundDark = Color(0xFF0F172A) // Slate 900
-val SurfaceDark = Color(0xFF1E293B)    // Slate 800
-val OnPrimaryDark = Color.White
-val OnSecondaryDark = Color.Black
+// Text Colors
+val NeoTextBlack = Color(0xFF111111)
+val NeoTextWhite = Color(0xFFFFFFFF)
 
-// Light Theme Colors (Optional, but good to have)
-val BackgroundLight = Color(0xFFF8FAFC) // Slate 50
-val SurfaceLight = Color(0xFFFFFFFF)
-val OnPrimaryLight = Color.White
+// Border Color
+val NeoBorder = Color(0xFF000000)

@@ -1,24 +1,34 @@
 package com.example.sidehustleindia
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.sidehustleindia.ui.dashboard.DashboardScreen
+import com.example.sidehustleindia.ui.MainScreen
 import com.example.sidehustleindia.ui.dashboard.HustleDetailScreen
+import com.example.sidehustleindia.ui.auth.LoginScreen
 import com.example.sidehustleindia.ui.onboarding.CityInputScreen
 import com.example.sidehustleindia.ui.onboarding.SkillsInputScreen
 import com.example.sidehustleindia.ui.onboarding.TimeGoalsScreen
 import com.example.sidehustleindia.ui.onboarding.WelcomeScreen
 import com.example.sidehustleindia.viewmodel.ProfileViewModel
+import com.example.sidehustleindia.ui.subscription.SubscriptionScreen
 
 @Composable
 fun SideHustleApp() {
     val navController = rememberNavController()
     val viewModel: ProfileViewModel = viewModel()
 
-    NavHost(navController = navController, startDestination = "welcome") {
+    NavHost(navController = navController, startDestination = "login") {
+        composable("login") {
+            LoginScreen(onLoginSuccess = {
+                navController.navigate("main") {
+                    popUpTo("login") { inclusive = true }
+                }
+            })
+        }
         composable("welcome") {
             WelcomeScreen(onStartClick = { navController.navigate("skills") })
         }
@@ -40,11 +50,11 @@ fun SideHustleApp() {
             TimeGoalsScreen(onFinish = { time, goal ->
                 viewModel.updateTime(time)
                 viewModel.updateGoals(goal)
-                navController.navigate("dashboard")
+                navController.navigate("main")
             })
         }
-        composable("dashboard") {
-            DashboardScreen(
+        composable("main") {
+            MainScreen(
                 viewModel = viewModel,
                 onHustleClick = { hustleId ->
                     navController.navigate("hustle_detail/$hustleId")
@@ -56,6 +66,18 @@ fun SideHustleApp() {
             val hustleId = backStackEntry.arguments?.getString("hustleId") ?: return@composable
             HustleDetailScreen(
                 hustleId = hustleId,
+                viewModel = viewModel,
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+        
+        composable("subscription") {
+            SubscriptionScreen(
+                currentlyPro = viewModel.isPro.collectAsState().value,
+                onUpgradeClick = {
+                    viewModel.toggleProStatus()
+                    navController.popBackStack()
+                },
                 onBackClick = { navController.popBackStack() }
             )
         }

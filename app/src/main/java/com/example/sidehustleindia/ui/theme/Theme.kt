@@ -1,6 +1,5 @@
 package com.example.sidehustleindia.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -12,29 +11,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = PrimaryViolet,
-    secondary = SecondaryTeal,
-    tertiary = SecondaryPink,
-    background = BackgroundDark,
-    surface = SurfaceDark,
-    onPrimary = OnPrimaryDark,
-    onSecondary = OnSecondaryDark,
+    primary = NeoYellow,
+    onPrimary = NeoBlack,
+    secondary = NeoPink,
+    onSecondary = NeoBlack,
+    tertiary = NeoGreen,
+    onTertiary = NeoBlack,
+    background = NeoBlack,
+    onBackground = NeoWhite,
+    surface = NeoBlack,
+    onSurface = NeoWhite,
+    surfaceVariant = NeoTextBlack,
+    onSurfaceVariant = NeoWhite
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = PrimaryIndigo,
-    secondary = SecondaryTeal,
-    tertiary = SecondaryPink,
-    background = BackgroundLight,
-    surface = SurfaceLight,
-    onPrimary = OnPrimaryLight,
+    primary = NeoYellow,
+    onPrimary = NeoBlack,
+    secondary = NeoPink,
+    onSecondary = NeoBlack,
+    tertiary = NeoGreen,
+    onTertiary = NeoBlack,
+    background = NeoBg,
+    onBackground = NeoBlack,
+    surface = NeoWhite,
+    onSurface = NeoBlack,
+    surfaceVariant = NeoWhite, // Cards need border to distinguish
+    onSurfaceVariant = NeoBlack
 )
 
 @Composable
 fun SideHustleIndiaTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = false, // Disable dynamic color to enforce branding
+    dynamicColor: Boolean = false, // DISABLED dynamic color to enforce Neobrutalism
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -42,7 +52,6 @@ fun SideHustleIndiaTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
@@ -50,6 +59,7 @@ fun SideHustleIndiaTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
+        shapes = Shapes,
         content = content
     )
 }
